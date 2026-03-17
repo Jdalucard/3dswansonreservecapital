@@ -9,8 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        philosopher: ["var(--font-philosopher)"],
-        montserrat: ["var(--font-montserrat)"],
+        philosopher: ["var(--font-philosopher)", "serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
+      },
+      colors: {
+        gold: {
+          DEFAULT: "#dcc562",
+          dark: "#b8a04d",
+        },
       },
     },
   },

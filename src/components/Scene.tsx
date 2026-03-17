@@ -1,11 +1,10 @@
 "use client";
 import { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { MeshDistortMaterial, Sphere } from "@react-three/drei";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-
 
 import * as THREE from "three";
 
@@ -19,18 +18,20 @@ function AnimatedSphere() {
   useGSAP(() => {
     if (meshRef.current) {
       gsap.to(meshRef.current.position, {
-        x: 2, 
+        x: 2,
         y: -1,
         scrollTrigger: {
-          trigger: "main", 
+          trigger: "main",
           start: "top top",
           end: "bottom bottom",
-          scrub: 1.5, 
+          scrub: 1.5,
         },
       });
-      
+
       gsap.to(meshRef.current.scale, {
-        x: 0.5, y: 0.5, z: 0.5, 
+        x: 0.5,
+        y: 0.5,
+        z: 0.5,
         scrollTrigger: {
           trigger: "main",
           start: "top top",

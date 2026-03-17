@@ -6,10 +6,11 @@ export default function Navbar({ show }: { show: boolean }) {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-6 md:px-16 transition-all duration-1000 ease-in-out ${
-        show ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+        show
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-4 pointer-events-none"
       }`}
     >
-
       <div className="flex items-center gap-4">
         <div className="relative w-[60px] h-[50px]">
           <Image
@@ -25,7 +26,6 @@ export default function Navbar({ show }: { show: boolean }) {
       </div>
 
       <div className="hidden lg:flex items-center gap-6">
-
         <div className="flex items-center gap-10 px-10 py-3 rounded-l-md bg-gradient-to-r from-black/50 to-black/20 backdrop-blur-md border-l border-white/5">
           {["About Us", "Our Story", "Team", "Governance"].map((item) => (
             <Link
@@ -36,8 +36,7 @@ export default function Navbar({ show }: { show: boolean }) {
               {item}
             </Link>
           ))}
-          
-    
+
           <button className="bg-[#dcc562] text-black px-6 py-2.5 text-[10px] uppercase tracking-widest font-black hover:brightness-110 transition-all duration-300 rounded-sm shadow-lg">
             + Schedule
           </button>

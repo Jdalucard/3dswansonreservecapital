@@ -2,18 +2,16 @@ import { Philosopher, Montserrat } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
-
 const philosopher = Philosopher({
   subsets: ["latin"],
   weight: ["400", "700"],
-  variable: "--font-philosopher", 
+  variable: "--font-philosopher",
 });
-
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
-  variable: "--font-montserrat", 
+  variable: "--font-montserrat",
 });
 
 export default function RootLayout({
@@ -22,12 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${philosopher.variable} ${montserrat.variable}`}>
-      <body className="antialiased bg-black font-montserrat"> 
-        {/* Seteamos Montserrat por defecto en el body */}
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+    <html
+      lang="en"
+      className={`${philosopher.variable} ${montserrat.variable}`}
+    >
+      <body className="antialiased bg-black font-montserrat">
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

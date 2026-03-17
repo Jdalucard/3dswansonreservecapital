@@ -1,112 +1,196 @@
 "use client";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef } from "react";
+import SwanModelViewer from "./Three/SwanModel";
 
-export default function Section2() {
-  // Configuración de la animación que se dispara con el scroll
-  const sideAnimation = {
-    initial: { 
-      opacity: 0, 
-      scaleX: 0.1, 
-      scale: 0.8, 
-      filter: "blur(8px)" 
-    },
-    whileInView: { 
-      opacity: 1, 
-      scaleX: 1, 
-      scale: 1, 
-      filter: "blur(0px)" 
-    },
-    // margin: "-100px" asegura que no aparezcan todas de golpe, sino una por una al bajar
-    viewport: { once: true, amount: 0.3, margin: "-50px" },
-    transition: { 
-      duration: 1.2, 
-      ease: [0.22, 1, 0.36, 1] as const
-    }
-  };
+const contentData = [
+  {
+    id: 1,
+    text: "Swanson Reserve Capital is private investment fund with dual Share Classes, Structured Notes & Long Equity Quantitative investing.",
+    img: "/family.png",
+    number: null,
+  },
+  {
+    id: 2,
+    text: "Create Quarterly Income: Pay ongoing expenses, kids tuition, mortgages, car payments, private jet, or fund charitable contributions.",
+    img: "/office.png",
+    number: "1.",
+  },
+  {
+    id: 3,
+    text: "Achieve Long Term Growth: While still receiving quarterly distributions, our Growth Notes and Equity Allocations are designed to accumulate long term wealth.",
+    img: "/family.png",
+    number: "2.",
+  },
+  {
+    id: 4,
+    text: "Capital Preservation: Both investment Share Classes are designed to shield our investors from large market downturns.",
+    img: "/ofiice2.png",
+    number: "3.",
+  },
+];
+
+const ImageBox = ({ src }: { src: string }) => (
+  <div className="relative w-176.25 max-w-[38vw] h-132.25 max-h-[28vw] rounded-[20px] overflow-hidden border border-white/10 shadow-2xl bg-zinc-900/40">
+    <Image src={src} alt="Swanson" fill className="object-cover" priority />
+  </div>
+);
+
+const TextBox = ({ text, number }: { text: string; number: string | null }) => (
+  <div className="max-w-125 mt-6">
+    <p className="text-white/90 font-montserrat text-[20px] leading-[1.6] tracking-tight">
+      {number && (
+        <span className="text-[#dcc562] font-bold mr-2 text-[24px]">
+          {number}
+        </span>
+      )}
+      {text}
+    </p>
+  </div>
+);
+
+interface ContentItem {
+  id: number;
+  text: string;
+  img: string;
+  number: string | null;
+}
+
+type Align = "start" | "end";
+
+const ContentBlock = ({
+  item,
+  index,
+  align,
+}: {
+  item: ContentItem;
+  index: number;
+  align: Align;
+}) => {
+  const isEven = index % 2 === 0;
 
   return (
-    <section className="relative w-full flex flex-col items-center justify-center bg-transparent py-32 overflow-hidden gap-40">
-      
-      {/* --- PRIMERA FILA: Introducción y Punto 1 --- */}
-      <div className="relative z-20 grid grid-cols-[1fr,0.6fr,1fr] gap-12 w-full max-w-[1600px] px-12 items-center">
-        
-        {/* IZQUIERDA: Introducción */}
-        <motion.div 
-          {...sideAnimation} 
-          transition={{ ...sideAnimation.transition, delay: 0.1 }}
-          className="flex flex-col gap-8 items-end origin-right"
-        >
-          <div className="relative w-[500px] h-[320px] rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
-            <Image src="/office.png" alt="Office" fill className="object-cover" priority />
-          </div>
-          <div className="max-w-[450px] text-right">
-            <p className="text-white font-montserrat text-[20px] leading-[1.3] opacity-90">
-              Swanson Reserve Capital is private investment fund with dual Share Classes, Structured Notes & Long Equity Quantitative investing.
-            </p>
-          </div>
-        </motion.div>
+    <div
+      className={`flex flex-col gap-4 items-${align} text-${align} relative`}
+    >
+      <motion.div
+        initial={{
+          opacity: 0,
+          rotateY: isEven ? 35 : -35,
+          rotateX: 15,
+          z: -150,
+          scale: 0.85,
+        }}
+        whileInView={{
+          opacity: 1,
+          rotateY: 0,
+          rotateX: 0,
+          z: 0,
+          scale: 1,
+        }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{
+          duration: 2,
+          ease: [0.19, 1, 0.22, 1],
+          delay: index * 0.1,
+        }}
+        style={{
+          perspective: "1200px",
+          transformStyle: "preserve-3d",
+          width: "100%",
+        }}
+      >
+        {isEven ? (
+          <>
+            <ImageBox src={item.img} />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 1 }}
+            >
+              <TextBox text={item.text} number={item.number} />
+            </motion.div>
+          </>
+        ) : (
+          <>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 1 }}
+            >
+              <TextBox text={item.text} number={item.number} />
+            </motion.div>
+            <ImageBox src={item.img} />
+          </>
+        )}
+      </motion.div>
+    </div>
+  );
+};
 
-        <div className="h-full pointer-events-none" /> {/* Espacio central libre */}
+export default function Section2() {
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-        {/* DERECHA: Punto 1 */}
-        <motion.div 
-          {...sideAnimation} 
-          transition={{ ...sideAnimation.transition, delay: 0.3 }}
-          className="flex flex-col gap-8 items-start origin-left"
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const swanOpacity = useTransform(
+    smoothProgress,
+    [0, 0.15, 0.85, 1],
+    [0, 1, 1, 0],
+  );
+  const swanY = useTransform(smoothProgress, [0, 1], ["-30vh", "140vh"]);
+  const swanRotation = useTransform(smoothProgress, [0, 1], [0, Math.PI * 2]);
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative w-full bg-black py-10 overflow-hidden"
+    >
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center z-40 pointer-events-none">
+        <motion.div
+          style={{ y: swanY, opacity: swanOpacity }}
+          className="w-full h-full max-w-275"
         >
-          <div className="max-w-[450px] text-left">
-            <p className="text-white font-montserrat text-[20px] leading-snug opacity-90 tracking-tight">
-              <span className="text-[#dcc562] font-bold mr-2 text-[22px]">1.</span>
-              Create Quarterly Income: Pay ongoing expenses, kids tuition, mortgages, car payments, private jet, or fund charitable contributions.
-            </p>
-          </div>
-          <div className="relative w-[500px] h-[320px] rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
-            <Image src="/family.png" alt="Partners" fill className="object-cover" priority />
-          </div>
+          <SwanModelViewer rotationY={swanRotation} />
         </motion.div>
       </div>
 
-      {/* --- SEGUNDA FILA: Punto 2 y Punto 3 --- */}
-      <div className="relative z-20 grid grid-cols-[1fr,0.6fr,1fr] gap-12 w-full max-w-[1600px] px-12 items-center">
-        
-        {/* IZQUIERDA: Punto 2 */}
-        <motion.div 
-          {...sideAnimation} 
-          transition={{ ...sideAnimation.transition, delay: 0.1 }}
-          className="flex flex-col gap-8 items-end origin-right"
-        >
-          <div className="max-w-[450px] text-right">
-            <p className="text-white font-montserrat text-[20px] leading-[1.3] opacity-90 tracking-tight">
-              <span className="text-[#dcc562] font-bold mr-2 text-[22px]">2.</span>
-              Achieve Long Term Growth: While still receiving quarterly distributions, our Growth Notes and Equity Allocations are designed to accumulate long term wealth.
-            </p>
-          </div>
-          <div className="relative w-[500px] h-[320px] rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
-            <Image src="/family.png" alt="Growth" fill className="object-cover" />
-          </div>
-        </motion.div>
+      <div className="relative z-30 -mt-[80vh] flex flex-col items-center gap-[40vh] pb-[40vh]">
+        {[0, 2].map((startIndex) => (
+          <div
+            key={startIndex}
+            className="grid grid-cols-3 justify-items-center gap-10 w-full max-w-475 px-12 items-center"
+          >
+            <div className="col-span-1 translate-y-60 flex ">
+              <ContentBlock
+                item={contentData[startIndex]}
+                index={startIndex}
+                align="end"
+              />
+            </div>
 
-        <div className="h-full pointer-events-none" /> {/* Espacio central libre */}
+            <div className="col-span-1" />
 
-        {/* DERECHA: Punto 3 */}
-        <motion.div 
-          {...sideAnimation} 
-          transition={{ ...sideAnimation.transition, delay: 0.3 }}
-          className="flex flex-col gap-8 items-start origin-left"
-        >
-          <div className="relative w-[500px] h-[320px] rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
-            <Image src="/office.png" alt="Preservation" fill className="object-cover" />
+            <div className="col-span-1 -translate-y-60 flex ">
+              <ContentBlock
+                item={contentData[startIndex + 1]}
+                index={startIndex + 1}
+                align="start"
+              />
+            </div>
           </div>
-          <div className="max-w-[450px] text-left">
-            <p className="text-white font-montserrat text-[20px] leading-snug opacity-90 tracking-tight">
-              <span className="text-[#dcc562] font-bold mr-2 text-[22px]">3.</span>
-              Capital Preservation: Both investment Share Classes are designed to shield our investors from large market downturns.
-            </p>
-          </div>
-        </motion.div>
+        ))}
       </div>
-
     </section>
   );
 }
