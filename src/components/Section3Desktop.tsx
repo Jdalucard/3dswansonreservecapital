@@ -66,10 +66,10 @@ const TeamCard = ({ member, index }: { member: TeamMember; index: number }) => {
           priority
           style={imageStyle}
         />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 z-10 bg-linear-to-t from-black/60 via-transparent to-transparent" />
 
         {isCenter && (
-          <div className="absolute bottom-0 z-20 flex h-[180px] w-full flex-col items-center justify-center border-t border-white/10 bg-zinc-900/95 px-10 backdrop-blur-3xl">
+          <div className="absolute bottom-0 z-20 flex h-45 w-full flex-col items-center justify-center border-t border-white/10 bg-zinc-900/95 px-10 backdrop-blur-3xl">
             <h3 className="mb-1 text-center text-4xl leading-none font-bold tracking-tighter text-white">
               {member.name}
             </h3>

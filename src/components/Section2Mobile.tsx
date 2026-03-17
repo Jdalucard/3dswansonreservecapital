@@ -20,7 +20,7 @@ const contentData = [
 ];
 
 const ImageBoxMobile = ({ src }: { src: string }) => (
-  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[20px] border border-white/10 bg-zinc-900/40 shadow-2xl">
+  <div className="relative aspect-16/10 w-full overflow-hidden rounded-[20px] border border-white/10 bg-zinc-900/40 shadow-2xl">
     <Image src={src} alt="Swanson" fill className="object-cover" priority />
   </div>
 );

@@ -43,6 +43,7 @@ export default function Section3Mobile() {
       className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden bg-black pt-16 pb-12"
       style={{ perspective: "1500px" }}
     >
+      {/* Encabezado */}
       <div className="relative z-20 mb-12 px-6 text-center">
         <h2 className="font-sans text-4xl leading-tight font-light tracking-tighter text-white">
           We are <br />
@@ -51,19 +52,22 @@ export default function Section3Mobile() {
       </div>
 
       <div className="relative flex w-full flex-1 flex-col items-center justify-center">
+        {/* Glow de fondo central para profundidad (Pulido) */}
         <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
           <div className="h-[600px] w-[600px] rounded-full bg-[#dcc562]/10 blur-[120px]" />
         </div>
 
+        {/* CÍRCULO RESTABLECIDO: Borde grueso y sólido (Pulido) */}
         <div className="absolute bottom-[16%] z-0 flex w-full justify-center">
           <div className="relative h-[120px] w-[380px]">
             <div
-              className="absolute inset-0 rounded-[100%] border-[4px] border-[#dcc562]"
+              className="absolute inset-0 rounded-[100%] border-[4px] border-[#dcc562] shadow-[0_0_50px_rgba(220,197,98,0.3)]"
               style={{ transform: "rotateX(70deg)" }}
             />
           </div>
         </div>
 
+        {/* Contenedor de Carrusel 3D */}
         <div
           className="relative z-10 flex h-[460px] w-full items-center justify-center"
           style={{ transformStyle: "preserve-3d" }}
@@ -95,12 +99,13 @@ export default function Section3Mobile() {
                     if (info.offset.x < -50) nextMember();
                     if (info.offset.x > 50) prevMember();
                   }}
-                  className="absolute h-[380px] w-[260px] cursor-grab overflow-hidden rounded-[32px] bg-black shadow-[0_0_60px_rgba(0,0,0,0.9)] active:cursor-grabbing"
+                  className="absolute h-[380px] w-[260px] cursor-grab overflow-hidden rounded-[32px] bg-black shadow-[0_40px_80px_rgba(0,0,0,0.8)] active:cursor-grabbing"
                   style={{
                     transformStyle: "preserve-3d",
                     zIndex: isCenter ? 30 : 10,
                   }}
                 >
+                  {/* Imagen de Miembro */}
                   <Image
                     src={member.img}
                     alt={member.name}
@@ -109,8 +114,10 @@ export default function Section3Mobile() {
                     priority
                   />
 
-                  <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-black/10 to-transparent" />
+                  {/* Gradiente de lectura suave e integrado (Pulido) */}
+                  <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
+                  {/* Info del Miembro (Solo visible en el centro) */}
                   {isCenter && (
                     <motion.div
                       initial={{ y: 20, opacity: 0 }}
@@ -131,6 +138,7 @@ export default function Section3Mobile() {
             })}
           </AnimatePresence>
 
+          {/* Indicador DRAG flotante (Pulido) */}
           <div
             className="pointer-events-none absolute top-[55%] right-[12%] h-20 w-20"
             style={{

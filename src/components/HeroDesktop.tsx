@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Navbar from "./Navbar"; // Asegúrate de que la ruta sea correcta
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -130,27 +131,10 @@ export default function HeroSequence() {
       className="relative w-full bg-black"
       style={{ height: "600vh" }}
     >
-      {/* NAVBAR INTEGRADO Y CORREGIDO */}
-      <div
-        className={`fixed top-0 left-0 z-[100] flex w-full items-center justify-between px-8 py-8 transition-opacity duration-1000 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {/* LOGO */}
-        <div className="relative h-10 w-48">
-          <img
-            src="/logoName.png"
-            alt="Swanson Logo"
-            className="h-full w-full object-contain object-left"
-          />
-        </div>
-
-        {/* HAMBURGUESA ESTÁTICA */}
-        <div className="flex flex-col items-end gap-1.5 p-2">
-          <span className="h-[1px] w-8 bg-white" />
-          <span className="h-[1px] w-5 bg-white" />
-        </div>
-      </div>
+      {/* Inyectamos tu Navbar real aquí. 
+          Él ya tiene la clase 'fixed' y maneja su propia opacidad/traducción con la prop 'show'
+      */}
+      <Navbar show={isLoaded} />
 
       <div ref={stickyRef} className="h-screen w-full overflow-hidden">
         <canvas

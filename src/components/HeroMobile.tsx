@@ -111,26 +111,31 @@ export default function HeroMobile() {
       ref={scrollContainerRef}
       className="relative h-[450vh] w-full bg-black"
     >
-      <div className="pointer-events-none fixed top-0 left-0 z-110 p-8">
-        <div className="pointer-events-auto flex items-center justify-between gap-6">
-          <div className="w-12">
-            <Image
-              src="/logoName.png"
-              alt="Logo"
-              width={48}
-              height={48}
-              className="object-contain"
-              priority
-            />
-          </div>
-          <div className="flex cursor-pointer flex-col gap-1.5 opacity-90">
-            <div className="h-px w-8 bg-white" />
-            <div className="h-px w-8 bg-white" />
-          </div>
+      {/* CABECERA CORREGIDA: LOGO IZQUIERDA, HAMBURGUESA DERECHA */}
+      <div
+        className={`fixed top-0 left-0 z-[120] flex w-full items-center justify-between px-8 py-8 transition-opacity duration-1000 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {/* LOGO */}
+        <div className="relative h-12 w-12">
+          <Image
+            src="/logoName.png"
+            alt="Logo"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+
+        {/* HAMBURGUESA ESTÁTICA */}
+        <div className="flex flex-col items-end gap-1.5 p-2 opacity-90">
+          <div className="h-px w-8 bg-white" />
+          <div className="h-px w-5 bg-white" />
         </div>
       </div>
 
-      <div ref={stickyRef} className="h-screen w-full">
+      <div ref={stickyRef} className="h-screen w-full overflow-hidden">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 z-0 h-full w-full"
