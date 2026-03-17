@@ -32,18 +32,17 @@ const contentData = [
 ];
 
 const ImageBox = ({ src }: { src: string }) => (
-  <div className="relative w-176.25 max-w-[38vw] h-132.25 max-h-[28vw] rounded-[20px] overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(220,197,98,0.15)] bg-zinc-900/40 group">
-    {/* Glow interno al hacer hover o scroll */}
-    <div className="absolute inset-0 bg-[#dcc562]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
+  <div className="group relative h-132.25 max-h-[28vw] w-176.25 max-w-[38vw] overflow-hidden rounded-[20px] border border-white/10 bg-zinc-900/40 shadow-[0_0_50px_rgba(220,197,98,0.15)]">
+    <div className="absolute inset-0 z-10 bg-[#dcc562]/5 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
     <Image src={src} alt="Swanson" fill className="object-cover" priority />
   </div>
 );
 
 const TextBox = ({ text, number }: { text: string; number: string | null }) => (
-  <div className="max-w-125 mt-6">
-    <p className="text-white/90 font-montserrat text-[20px] leading-[1.6] tracking-tight">
+  <div className="mt-6 max-w-125">
+    <p className="font-montserrat text-[20px] leading-[1.6] tracking-tight text-white/90">
       {number && (
-        <span className="text-[#dcc562] font-bold mr-2 text-[24px]">
+        <span className="mr-2 text-[24px] font-bold text-[#dcc562]">
           {number}
         </span>
       )}
@@ -148,7 +147,7 @@ export default function Section2() {
   const swanOpacity = useTransform(
     smoothProgress,
     [0, 0.15, 0.85, 1],
-    [0, 1, 1, 0],
+    [0, 1, 1, 0]
   );
   const swanY = useTransform(smoothProgress, [0, 1], ["-30vh", "140vh"]);
   const swanRotation = useTransform(smoothProgress, [0, 1], [0, Math.PI * 2]);
@@ -156,29 +155,22 @@ export default function Section2() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-black py-10 overflow-hidden"
+      className="relative w-full overflow-hidden bg-black py-10"
     >
-      {/* --- EFECTOS DE ILUMINACIÓN DORADA --- */}
+      <div className="pointer-events-none absolute top-0 left-1/2 h-[500px] w-full -translate-x-1/2 bg-[#dcc562]/10 blur-[120px]" />
 
-      {/* 1. Iluminación Superior Fija */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[#dcc562]/10 blur-[120px] pointer-events-none" />
-
-      {/* 2. Glow que sigue al Cisne (Dynamic Follow Light) */}
       <motion.div
         style={{ y: swanY, opacity: swanOpacity }}
-        className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#dcc562]/10 blur-[150px] rounded-full pointer-events-none z-10"
+        className="pointer-events-none fixed top-0 left-1/2 z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#dcc562]/10 blur-[150px]"
       />
 
-      {/* 3. Luces laterales de profundidad */}
-      <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-[#dcc562]/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[-10%] w-[40%] h-[40%] bg-[#dcc562]/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="pointer-events-none absolute top-[20%] left-[-10%] h-[40%] w-[40%] rounded-full bg-[#dcc562]/5 blur-[120px]" />
+      <div className="pointer-events-none absolute right-[-10%] bottom-[20%] h-[40%] w-[40%] rounded-full bg-[#dcc562]/5 blur-[120px]" />
 
-      {/* --- FIN ILUMINACIÓN --- */}
-
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center z-40 pointer-events-none">
+      <div className="pointer-events-none sticky top-0 z-40 flex h-screen w-full items-center justify-center">
         <motion.div
           style={{ y: swanY, opacity: swanOpacity }}
-          className="w-full h-full max-w-275"
+          className="h-full w-full max-w-275"
         >
           <SwanModelViewer rotationY={swanRotation} />
         </motion.div>
@@ -188,9 +180,9 @@ export default function Section2() {
         {[0, 2].map((startIndex) => (
           <div
             key={startIndex}
-            className="grid grid-cols-3 justify-items-center gap-10 w-full max-w-475 px-12 items-center"
+            className="grid w-full max-w-475 grid-cols-3 items-center justify-items-center gap-10 px-12"
           >
-            <div className="col-span-1 translate-y-60 flex ">
+            <div className="col-span-1 flex translate-y-60">
               <ContentBlock
                 item={contentData[startIndex]}
                 index={startIndex}
@@ -200,7 +192,7 @@ export default function Section2() {
 
             <div className="col-span-1" />
 
-            <div className="col-span-1 -translate-y-60 flex ">
+            <div className="col-span-1 flex -translate-y-60">
               <ContentBlock
                 item={contentData[startIndex + 1]}
                 index={startIndex + 1}
