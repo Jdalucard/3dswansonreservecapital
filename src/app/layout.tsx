@@ -6,7 +6,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 const philosopher = Philosopher({
   subsets: ["latin"],
   weight: ["400", "700"],
-  variable: "--font-philosopher", // Variable para Tailwind
+  variable: "--font-philosopher", 
 });
 
 
