@@ -32,7 +32,9 @@ const contentData = [
 ];
 
 const ImageBox = ({ src }: { src: string }) => (
-  <div className="relative w-176.25 max-w-[38vw] h-132.25 max-h-[28vw] rounded-[20px] overflow-hidden border border-white/10 shadow-2xl bg-zinc-900/40">
+  <div className="relative w-176.25 max-w-[38vw] h-132.25 max-h-[28vw] rounded-[20px] overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(220,197,98,0.15)] bg-zinc-900/40 group">
+    {/* Glow interno al hacer hover o scroll */}
+    <div className="absolute inset-0 bg-[#dcc562]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
     <Image src={src} alt="Swanson" fill className="object-cover" priority />
   </div>
 );
@@ -156,6 +158,23 @@ export default function Section2() {
       ref={sectionRef}
       className="relative w-full bg-black py-10 overflow-hidden"
     >
+      {/* --- EFECTOS DE ILUMINACIÓN DORADA --- */}
+
+      {/* 1. Iluminación Superior Fija */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[#dcc562]/10 blur-[120px] pointer-events-none" />
+
+      {/* 2. Glow que sigue al Cisne (Dynamic Follow Light) */}
+      <motion.div
+        style={{ y: swanY, opacity: swanOpacity }}
+        className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#dcc562]/10 blur-[150px] rounded-full pointer-events-none z-10"
+      />
+
+      {/* 3. Luces laterales de profundidad */}
+      <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-[#dcc562]/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[-10%] w-[40%] h-[40%] bg-[#dcc562]/5 blur-[120px] rounded-full pointer-events-none" />
+
+      {/* --- FIN ILUMINACIÓN --- */}
+
       <div className="sticky top-0 h-screen w-full flex items-center justify-center z-40 pointer-events-none">
         <motion.div
           style={{ y: swanY, opacity: swanOpacity }}
