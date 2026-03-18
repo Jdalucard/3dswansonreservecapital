@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Swanson Reserve Capital - 3D Web 
 
-## Getting Started
+Este proyecto es una réplica de alta fidelidad del sitio **Swanson Reserve Capital**, desarrollada como prueba técnica para la posición de **3D Web Developer**. El objetivo principal fue demostrar habilidades en el manejo de secuencias de imágenes, integración de modelos 3D en tiempo real (WebGL) y optimización de rendimiento para dispositivos móviles.
 
-First, run the development server:
+ **Deploy:** [https://taupe-sunburst-cabcbb.netlify.app/](https://taupe-sunburst-cabcbb.netlify.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ Stack Tecnológico
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Framework:** [Next.js 14+](https://nextjs.org/) (App Router)
+* **3D Engine:** [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) (Three.js)
+* **Animaciones:** [GSAP](https://greensock.com/gsap/) + ScrollTrigger & [Framer Motion](https://www.framer.com/motion/)
+* **Estilos:** [Tailwind CSS](https://tailwindcss.com/)
+* **Renderizado:** HTML5 Canvas 2D (Secuencias) & WebGL (Modelos 3D)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎯 Desafíos y Soluciones Técnicas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Optimización de Scroll en Mobile
+Se detectó un bloqueo inicial en el scroll debido a la interceptación de eventos de Three.js. 
+* **Solución:** Implementación de `touch-action: pan-y` y eliminación de `eventSource` global, devolviendo el control del scroll al navegador y garantizando 60 FPS estables.
 
-## Learn More
+### 2. Sincronización de Secuencias (Scrollytelling)
+El Hero utiliza una secuencia de 237 frames.
+* **Solución:** Uso de **HTML5 Canvas API** para renderizar frames bajo demanda sincronizados con el progreso del scroll de GSAP, evitando el consumo excesivo de memoria de los elementos `<img>` tradicionales.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Estabilidad de Layout (CLS 0)
+* **Solución:** Uso de `next/dynamic` con `ssr: false` y *Skeletons* con dimensiones fijas para evitar saltos visuales (Layout Shift) mientras se hidratan los componentes 3D.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Rendimiento WebGL
+* **Solución:** Limitación dinámica de `devicePixelRatio` (DPR) a un máximo de 1.5 en móviles para balancear nitidez visual y consumo energético.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ Instalación y Uso
 
-## Deploy on Vercel
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone [https://github.com/Jdalucard/3dswansonreservecapital.git](https://github.com/Jdalucard/3dswansonreservecapital.git)
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2.  **Instalar dependencias:**
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3.  **Correr en modo desarrollo:**
+    ```bash
+    npm run dev
+    ```
+
+4.  **Generar build de producción:**
+    ```bash
+    npm run build
+    ```
+
+---
+Desarrollado por **Jose Daniel Martínez Pacheco**
