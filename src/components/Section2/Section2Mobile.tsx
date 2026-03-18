@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 const SwanModelViewer = dynamic(() => import("../Three/SwanModel"), {
   ssr: false,
   loading: () => (
-    <div className="aspect-square h-full w-full max-w-87.5 bg-transparent" />
+    <div className="aspect-square h-80 w-full max-w-70 bg-transparent" />
   ),
 });
 
@@ -59,35 +59,6 @@ export default function Section2Mobile() {
       ref={containerRef}
       className="relative w-full overflow-hidden bg-black py-20"
     >
-      <div className="pointer-events-none absolute inset-0 z-10 opacity-30">
-        <svg
-          width="100%"
-          height="100%"
-          viewBox="0 0 400 1200"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-        >
-          <motion.path
-            d="M 350 0 L 200 550"
-            stroke="white"
-            strokeWidth="0.5"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.8, ease: "linear" }}
-          />
-          <motion.path
-            d="M 200 550 L 50 1200"
-            stroke="white"
-            strokeWidth="0.5"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.8, ease: "linear", delay: 0.3 }}
-          />
-          <circle cx="200" cy="550" r="2" fill="#dcc562" />
-        </svg>
-      </div>
-
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.03]">
         <div className="relative h-full w-[150%] max-w-none rotate-12">
           <Image
@@ -100,10 +71,32 @@ export default function Section2Mobile() {
         </div>
       </div>
 
+      <div className="pointer-events-none absolute inset-0 z-10">
+        <motion.div
+          initial={{ scaleY: 0, opacity: 0 }}
+          whileInView={{ scaleY: 1, opacity: 0.2 }}
+          transition={{ duration: 1.5 }}
+          style={{ originY: 0 }}
+          className="absolute top-0 right-10 h-[40%] w-[0.5px] rotate-[15deg] bg-white"
+        />
+        <motion.div
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          className="absolute top-[50%] left-1/2 h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#dcc562]"
+        />
+        <motion.div
+          initial={{ scaleY: 0, opacity: 0 }}
+          whileInView={{ scaleY: 1, opacity: 0.2 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          style={{ originY: 1 }}
+          className="absolute bottom-0 left-10 h-[40%] w-[0.5px] rotate-[15deg] bg-white"
+        />
+      </div>
+
       <div className="relative z-20 flex flex-col items-center">
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="relative mb-6 flex w-full flex-col items-end pr-6 text-right"
         >
@@ -117,11 +110,12 @@ export default function Section2Mobile() {
         </motion.div>
 
         <div className="relative z-30 my-4 flex h-80 w-full items-center justify-center">
+          <div className="pointer-events-none absolute h-60 w-60 rounded-full bg-[#dcc562]/15 blur-[80px]" />
+
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
             className="relative flex h-full w-full items-center justify-center"
           >
             <div className="aspect-square h-full w-full max-w-70">
@@ -131,8 +125,8 @@ export default function Section2Mobile() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="relative mt-6 flex w-full flex-col items-start pl-6 text-left"
         >
@@ -146,7 +140,7 @@ export default function Section2Mobile() {
         </motion.div>
       </div>
 
-      <div className="pointer-events-none absolute top-1/2 left-1/2 h-100 w-full -translate-x-1/2 -translate-y-1/2 bg-[#dcc562]/10 blur-[100px]" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-[#dcc562]/5 blur-[120px]" />
     </section>
   );
 }
