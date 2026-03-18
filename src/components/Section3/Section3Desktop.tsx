@@ -48,7 +48,6 @@ export default function Section3() {
 
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 h-125 w-full bg-linear-to-b from-[#dcc562]/15 via-transparent to-transparent blur-[120px]" />
-
         <div className="absolute bottom-0 h-125 w-full bg-linear-to-t from-[#dcc562]/15 via-transparent to-transparent blur-[120px]" />
       </div>
 
@@ -82,12 +81,18 @@ export default function Section3() {
                   rotateY: isCenter ? 0 : isLeft ? 25 : -25,
                   z: isCenter ? 50 : -200,
                 }}
-                transition={{ type: "spring", stiffness: 120, damping: 20 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 160,
+                  damping: 26,
+                  mass: 1,
+                  restDelta: 0.001,
+                }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 onDragEnd={(_, info) => {
-                  if (info.offset.x < -50) nextMember();
-                  if (info.offset.x > 50) prevMember();
+                  if (info.offset.x < -25) nextMember();
+                  if (info.offset.x > 25) prevMember();
                 }}
                 className="absolute h-130 w-90 cursor-grab overflow-hidden rounded-[30px] border border-white/10 bg-zinc-900 shadow-[0_50px_100px_rgba(0,0,0,0.9)] active:cursor-grabbing"
                 style={{

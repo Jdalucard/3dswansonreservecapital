@@ -2,7 +2,14 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import SwanModelViewer from "../Three/SwanModel";
+import dynamic from "next/dynamic"; // 1. Importar dynamic
+
+const SwanModelViewer = dynamic(() => import("../Three/SwanModel"), {
+  ssr: false,
+  loading: () => (
+    <div className="aspect-square h-full w-full max-w-87.5 bg-transparent" />
+  ),
+});
 
 const contentData = [
   {
@@ -69,7 +76,6 @@ export default function Section2Mobile() {
             whileInView={{ pathLength: 1, opacity: 1 }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
           />
-
           <motion.path
             d="M 200 400 L 80 650"
             stroke="white"
@@ -78,13 +84,12 @@ export default function Section2Mobile() {
             whileInView={{ pathLength: 1, opacity: 1 }}
             transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
           />
-
           <circle cx="200" cy="400" r="2" fill="#dcc562" />
         </svg>
       </div>
 
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.03]">
-        <div className="relative w-[150%] max-w-none rotate-12">
+        <div className="relative h-full w-[150%] max-w-none rotate-12">
           <Image
             src="/logoName.png"
             alt=""
@@ -127,6 +132,7 @@ export default function Section2Mobile() {
           </motion.div>
         </div>
 
+        {/* Block 2 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -144,6 +150,8 @@ export default function Section2Mobile() {
           </div>
         </motion.div>
       </div>
+
+      {/* Center Glow */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-100 w-full -translate-x-1/2 -translate-y-1/2 bg-[#dcc562]/10 blur-[120px]" />
     </section>
   );

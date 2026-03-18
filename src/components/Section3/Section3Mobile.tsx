@@ -141,7 +141,7 @@ export default function Section3Mobile() {
         <motion.div
           animate={{ x: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="pointer-events-none absolute top-[52%] right-[10%] z-[100] h-16 w-16"
+          className="pointer-events-none absolute top-[52%] right-[10%] z-100 h-16 w-16"
           style={{ transform: "translateZ(500px)" }}
         >
           <Image

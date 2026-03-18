@@ -1,8 +1,13 @@
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import SwanModelViewer from "../Three/SwanModel";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const SwanModelViewer = dynamic(() => import("../Three/SwanModel"), {
+  ssr: false,
+  loading: () => <div className="h-full w-full bg-transparent" />,
+});
 
 interface ContentItem {
   id: number;
@@ -93,13 +98,13 @@ const BackgroundVectors = () => (
 const ImageBox = ({ src }: { src: string }) => (
   <div className="group relative h-132.25 max-h-[28vw] w-176.25 max-w-[38vw] overflow-hidden rounded-[20px] border border-white/10 bg-zinc-900/40 shadow-[0_0_60px_rgba(255,255,255,0.08)]">
     <div className="absolute inset-0 z-10 bg-white/5 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-    <Image src={src} alt="Swanson" fill className="object-cover" priority />
+    <Image src={src} alt="Swanson" fill className="object-cover" />
   </div>
 );
 
 const TextBox = ({ text, number }: { text: string; number: string | null }) => (
   <div className="mt-8 max-w-135">
-    <p className="font-montserrat text-[22px] leading-[1.7] font-medium tracking-tight text-pretty text-white/95 antialiased">
+    <p className="font-montserrat text-[22px] leading-[1.7] font-medium tracking-tight text-white/95 antialiased">
       {number && (
         <span className="mr-3 text-[28px] font-extrabold text-[#dcc562] antialiased">
           {number}
@@ -204,7 +209,6 @@ export default function Section2() {
       <BackgroundVectors />
 
       <div className="pointer-events-none absolute top-0 left-1/2 h-140 w-[110%] -translate-x-1/2 bg-[radial-gradient(circle,rgba(220,197,98,0.15)_0%,rgba(0,0,0,0)_70%)] blur-[100px]" />
-
       <div className="pointer-events-none absolute top-[20%] left-[-15%] h-[60%] w-[60%] rounded-full bg-[#dcc562]/5 blur-[130px]" />
       <div className="pointer-events-none absolute right-[-15%] bottom-[20%] h-[60%] w-[60%] rounded-full bg-[#dcc562]/5 blur-[130px]" />
 
@@ -214,13 +218,13 @@ export default function Section2() {
           className="relative flex h-full w-full max-w-285 items-center justify-center"
         >
           <div className="absolute h-100 w-100 rounded-full bg-[#dcc562]/10 opacity-80 blur-[120px]" />
-
           <div className="relative h-full w-full">
             <SwanModelViewer rotationY={swanRotation} />
           </div>
         </motion.div>
       </div>
 
+      {/* Grid de Contenido */}
       <div className="relative z-30 -mt-[85vh] flex flex-col items-center gap-[50vh] pb-[30vh]">
         {[0, 2].map((startIndex) => (
           <div
@@ -234,9 +238,7 @@ export default function Section2() {
                 align="end"
               />
             </div>
-
             <div className="col-span-1" />
-
             <div className="col-span-1 flex -translate-y-30">
               <ContentBlock
                 item={contentData[startIndex + 1]}

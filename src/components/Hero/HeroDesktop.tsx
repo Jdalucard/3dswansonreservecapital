@@ -150,7 +150,7 @@ export default function HeroSequence() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed inset-0 z-[999] flex items-center justify-center bg-black"
+            className="fixed inset-0 z-999 flex items-center justify-center bg-black"
           >
             <motion.div
               animate={{ opacity: [0.4, 1, 0.4] }}
@@ -212,7 +212,7 @@ export default function HeroSequence() {
 
             <div className="scroll-explore absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center">
               <div className="relative flex flex-col items-center justify-end pb-2">
-                <div className="absolute bottom-[-20px] h-[60px] w-[120px] rounded-full bg-white/5 blur-xl" />
+                <div className="absolute -bottom-5 h-15 w-30 rounded-full bg-white/5 blur-xl" />
                 <p className="font-montserrat relative mb-2 text-[9px] font-light tracking-[0.5em] text-white/40 uppercase">
                   Scroll to explore
                 </p>
