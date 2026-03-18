@@ -5,7 +5,9 @@
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 10, 10, 15;
 }
-
+* {
+  box-sizing: border-box;
+}
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-start-rgb));

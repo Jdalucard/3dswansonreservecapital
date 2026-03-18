@@ -24,7 +24,7 @@ export default function RootLayout({
       lang="en"
       className={`${philosopher.variable} ${montserrat.variable}`}
     >
-      <body className="antialiased bg-black font-montserrat">
+      <body className="font-montserrat bg-black antialiased">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

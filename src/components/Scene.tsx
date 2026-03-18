@@ -1,10 +1,10 @@
 "use client";
 import { useRef } from "react";
 import { Canvas } from "@react-three/fiber";
+import { useGSAP } from "@gsap/react";
 import { MeshDistortMaterial, Sphere } from "@react-three/drei";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 
 import * as THREE from "three";
 
