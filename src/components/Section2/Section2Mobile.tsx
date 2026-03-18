@@ -58,6 +58,7 @@ export default function Section2Mobile() {
     <section
       ref={containerRef}
       className="relative w-full overflow-hidden bg-black py-20"
+      style={{ willChange: "transform" }}
     >
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.03]">
         <div className="relative h-full w-[150%] max-w-none rotate-12">
@@ -72,32 +73,15 @@ export default function Section2Mobile() {
       </div>
 
       <div className="pointer-events-none absolute inset-0 z-10">
-        <motion.div
-          initial={{ scaleY: 0, opacity: 0 }}
-          whileInView={{ scaleY: 1, opacity: 0.2 }}
-          transition={{ duration: 1.5 }}
-          style={{ originY: 0 }}
-          className="absolute top-0 right-10 h-[40%] w-[0.5px] rotate-[15deg] bg-white"
-        />
-        <motion.div
-          initial={{ scale: 0 }}
-          whileInView={{ scale: 1 }}
-          className="absolute top-[50%] left-1/2 h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#dcc562]"
-        />
-        <motion.div
-          initial={{ scaleY: 0, opacity: 0 }}
-          whileInView={{ scaleY: 1, opacity: 0.2 }}
-          transition={{ duration: 1.5, delay: 0.5 }}
-          style={{ originY: 1 }}
-          className="absolute bottom-0 left-10 h-[40%] w-[0.5px] rotate-[15deg] bg-white"
-        />
+        <div className="absolute top-0 right-10 h-[40%] w-[0.5px] rotate-[15deg] bg-white/20" />
+        <div className="absolute bottom-0 left-10 h-[40%] w-[0.5px] rotate-[15deg] bg-white/20" />
       </div>
 
       <div className="relative z-20 flex flex-col items-center">
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           className="relative mb-6 flex w-full flex-col items-end pr-6 text-right"
         >
           <div className="w-[85%]">
@@ -110,24 +94,19 @@ export default function Section2Mobile() {
         </motion.div>
 
         <div className="relative z-30 my-4 flex h-80 w-full items-center justify-center">
-          <div className="pointer-events-none absolute h-60 w-60 rounded-full bg-[#dcc562]/15 blur-[80px]" />
+          <div className="absolute h-60 w-60 translate-z-0 rounded-full bg-[#dcc562]/10 blur-[90px]" />
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="relative flex h-full w-full items-center justify-center"
-          >
+          <div className="relative flex h-full w-full items-center justify-center">
             <div className="aspect-square h-full w-full max-w-70">
               <SwanModelViewer />
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           className="relative mt-6 flex w-full flex-col items-start pl-6 text-left"
         >
           <div className="w-[85%]">
@@ -140,7 +119,7 @@ export default function Section2Mobile() {
         </motion.div>
       </div>
 
-      <div className="pointer-events-none absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-[#dcc562]/5 blur-[120px]" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 h-125 w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#dcc562]/5 blur-[120px]" />
     </section>
   );
 }

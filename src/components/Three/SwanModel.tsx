@@ -9,9 +9,8 @@ function ModelContent({ rotationY }: { rotationY?: MotionValue<number> }) {
   const { scene } = useGLTF("/Models/swan_compressed_webp.glb");
   const modelRef = useRef<THREE.Group>(null);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (!modelRef.current) return;
-
     modelRef.current.rotation.y += delta * 0.2;
 
     if (rotationY) {
@@ -34,9 +33,9 @@ function ModelContent({ rotationY }: { rotationY?: MotionValue<number> }) {
         position={[0, -1.1, 0]}
         opacity={0.4}
         scale={6}
-        blur={1.5}
+        blur={2}
         far={2}
-        resolution={256}
+        resolution={128}
       />
       <Environment preset="city" />
     </>
@@ -51,13 +50,13 @@ export default function SwanModelViewer({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const id =
-      typeof window !== "undefined"
-        ? window.requestAnimationFrame(() => setMounted(true))
-        : undefined;
+    const frameId = window.requestAnimationFrame(() => {
+      setMounted(true);
+    });
+
     return () => {
-      if (typeof window !== "undefined" && typeof id === "number") {
-        window.cancelAnimationFrame(id);
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
       }
     };
   }, []);
@@ -69,22 +68,20 @@ export default function SwanModelViewer({
   return (
     <div
       className="h-full w-full"
-      style={{ touchAction: "none", pointerEvents: "none" }}
+      style={{
+        touchAction: "pan-y",
+        pointerEvents: "none",
+      }}
     >
       <Canvas
-        dpr={1}
+        dpr={[1, 1.5]}
         camera={{ fov: 45, position: [0, 0, 8] }}
         gl={{
           antialias: false,
           alpha: true,
           powerPreference: "high-performance",
-          precision: "lowp",
+          precision: "mediump",
         }}
-        eventSource={
-          typeof document !== "undefined"
-            ? (document.getElementById("__next") as HTMLElement)
-            : undefined
-        }
       >
         <Suspense fallback={null}>
           <ModelContent rotationY={rotationY} />
